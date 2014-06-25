@@ -25,5 +25,15 @@ Template.leaderboard.events({
 Template.student.events({
   'click': function () {
     Session.set("selected_student", this._id);
+  },
+  'click input.present': function () {
+    
+  },
+  'click input.not_here': function() {
+    
+  },
+  'click input.late': function() {
+
   }
 });
+
