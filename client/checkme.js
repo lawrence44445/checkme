@@ -50,14 +50,15 @@ Template.student.events({
         date: Date(),
         name: "Mobile Dev Class # 2",
         number: 3,
-        course: "Mobile Dev Class",   //link to document in course collection...
+        course: Meetings.insert( {
+                courses: "_id"}),    //link to document in course collection...
         students: {
           name: "Tyson",
           studentnumber: 4,
           attendance: "here"
         }
       })
-      console.log("need to insert a Meetings");
+      console.log("need to insert Meetings");
     }
   },
   'click input.not_here': function() {
