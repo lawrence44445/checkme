@@ -27,12 +27,38 @@ Template.student.events({
     Session.set("selected_student", this._id);
   },
   'click input.present': function () {
-    Students.update({_id: Session.get("selected_student")},
+    var sessionCheck = Meetings.find({name: "Mobile Dev Class # 2"}).fetch();;
+    console.log(sessionCheck);
+    if (sessionCheck[0]) {
+      console.log(sessionCheck[0]._id);
+      Meetings.update({_id: sessionCheck[0]._id},
                     {$set:
-                      { attendance: "yes"}
+                      { students:
+                        {
+                          name: "Lawrence",
+                          studentnumber: 5,
+                          attendance: "not here"
+                        }
+                      }
                     });
-    var students = Students.find(Session.get("selected_student")).fetch();
-    console.log(students);
+      var students = Students.find(Session.get("selected_student")).fetch();
+      console.log(students);
+      console.log('session exists');
+    } else  {
+      Meetings.insert(
+      {
+        date: Date(),
+        name: "Mobile Dev Class # 2",
+        number: 3,
+        course: "Mobile Dev Class",   //link to document in course collection...
+        students: {
+          name: "Tyson",
+          studentnumber: 4,
+          attendance: "here"
+        }
+      })
+      console.log("need to insert a Meetings");
+    }
   },
   'click input.not_here': function() {
     Students.update({_id: Session.get("selected_student")},
