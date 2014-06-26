@@ -1,5 +1,6 @@
 
 Meteor.startup(function () {
+	Students.remove({});
 	if (Students.find().count() === 0) {
       var names = ["Lawrence Ng",
                    "Santiago Fonseca",
