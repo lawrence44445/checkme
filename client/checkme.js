@@ -35,10 +35,20 @@ Template.student.events({
     console.log(students);
   },
   'click input.not_here': function() {
-
+    Students.update({_id: Session.get("selected_student")},
+        {$set:
+          { attendance: "not here"}
+        });
+    var students=Students.find(Session.get("selected_student")).fetch();
+    console.log(students);
   },
   'click input.late': function() {
-
+      Students.update({_id: Session.get("selected_student")},
+        {$set:
+          { attendance:"late"}
+        });
+      var students=Students.find(Session.get("selected_student")).fetch();
+    console.log(students);
   }
 });
 
