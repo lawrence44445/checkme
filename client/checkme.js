@@ -1,5 +1,3 @@
-var studentsArray=new Array();
-
 
 Template.leaderboard.students = function () {
   return Students.find({});
@@ -29,37 +27,27 @@ Template.student.events({
     Session.set("selected_student", this._id);
   },
   'click input.present': function () {
-    var sessionCheck = Meetings.find({name: "Mobile Dev Class # 2"}).fetch();;
+    var sessionCheck = Meetings.find({name: "Mobile Dev Class # 2"}).fetch();
     console.log(sessionCheck);
     if (sessionCheck[0]) {
       console.log(sessionCheck[0]._id);
-     /* Meetings.update({_id: sessionCheck[0]._id},
-                    {$set:
-                      { students:
-                        {
-                          //name: Students.findOne(Session.get("selected_student")).name,
-                          //studentnumber: Students.findOne(Session.get("selected_student")).id,
-                          //attendance: "not here"
-                        }
-                      }
-                    });*/
-      /*Meetings.update({_id: studentsArray}, 
-                      {$addToSet: 
-                        {
-                          name: Students.findOne(Session.get("selected_student")).name,
-                          studentnumber: Students.findOne(Session.get("selected_student"))._id,
-                          attendance: "here"
-                        }});*/
      
+    var newStudent = {
+      name: Students.findOne(Session.get("selected_student")).name,
+      studentnumber: Students.findOne(Session.get("selected_student"))._id,
+      attendance: "here"
+    };
 
-     Meetings.update({_id: studentsArray.id},
-                      {$addToSet: {studentsArray: 
-                       {   
-                         name: Students.findOne(Session.get("selected_student")).name,
-                          studentnumber: Students.findOne(Session.get("selected_student"))._id,
-                          attendance: "here"
-                      }}});
+    
+     Meetings.update(
+                      {_id: sessionCheck[0]._id},
+                      {$addToSet: 
+                        { studentsArray: newStudent
+                        }
+                       }); 
 
+     var doubleCheck = Meetings.find({name: "Mobile Dev Class # 2"}).fetch();
+    console.log(doubleCheck);
       var students = Students.find(Session.get("selected_student")).fetch();
  //     console.log(Students.findOne(Session.get("selected_student"))._id);
    //   console.log(Students.findOne(Session.get("selected_student")).name);
