@@ -1,3 +1,5 @@
+var studentsArray=new Array();
+
 
 Template.leaderboard.students = function () {
   return Students.find({});
@@ -31,17 +33,36 @@ Template.student.events({
     console.log(sessionCheck);
     if (sessionCheck[0]) {
       console.log(sessionCheck[0]._id);
-      Meetings.update({_id: sessionCheck[0]._id},
+     /* Meetings.update({_id: sessionCheck[0]._id},
                     {$set:
                       { students:
                         {
-                          name: "Lawrence",
-                          studentnumber: 5,
-                          attendance: "not here"
+                          //name: Students.findOne(Session.get("selected_student")).name,
+                          //studentnumber: Students.findOne(Session.get("selected_student")).id,
+                          //attendance: "not here"
                         }
                       }
-                    });
+                    });*/
+      /*Meetings.update({_id: studentsArray}, 
+                      {$addToSet: 
+                        {
+                          name: Students.findOne(Session.get("selected_student")).name,
+                          studentnumber: Students.findOne(Session.get("selected_student"))._id,
+                          attendance: "here"
+                        }});*/
+     
+
+     Meetings.update({_id: studentsArray.id},
+                      {$addToSet: {studentsArray: 
+                       {   
+                         name: Students.findOne(Session.get("selected_student")).name,
+                          studentnumber: Students.findOne(Session.get("selected_student"))._id,
+                          attendance: "here"
+                      }}});
+
       var students = Students.find(Session.get("selected_student")).fetch();
+ //     console.log(Students.findOne(Session.get("selected_student"))._id);
+   //   console.log(Students.findOne(Session.get("selected_student")).name);
       console.log(students);
       console.log('session exists');
     } else  {
@@ -51,12 +72,14 @@ Template.student.events({
         name: "Mobile Dev Class # 2",
         number: 3,
         course: Meetings.insert( {
-                courses: "_id"}),    //link to document in course collection...
-        students: {
-          name: "Tyson",
-          studentnumber: 4,
-          attendance: "here"
-        }
+                course: "_id" }),    //link to document in course collection...
+        studentsArray: [ 
+                        {
+                          name: "Tyson",
+                          studentnumber: 4,
+                          attendance: "here"
+                        }
+                      ]
       })
       console.log("need to insert Meetings");
     }
