@@ -1,3 +1,6 @@
+// Template.courseBoard.newCourses = function() {
+//   console.log('hello world');
+// };
 
 Template.leaderboard.students = function () {
   return Students.find({});
@@ -49,8 +52,6 @@ Template.student.events({
      var doubleCheck = Meetings.find({name: "Mobile Dev Class # 2"}).fetch();
     console.log(doubleCheck);
       var students = Students.find(Session.get("selected_student")).fetch();
- //     console.log(Students.findOne(Session.get("selected_student"))._id);
-   //   console.log(Students.findOne(Session.get("selected_student")).name);
       console.log(students);
       console.log('session exists');
     } else  {
@@ -89,4 +90,3 @@ Template.student.events({
     console.log(students);
   }
 });
-
