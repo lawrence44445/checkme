@@ -18,11 +18,19 @@
 		{{> leaderboard}}
 	{{else}}
 		<div>
-			<h2>Course1</h2>
-			<p>Course1 details , sessions</p>
+			Course:<input type="text" id="new_course_name">
+			<input type="button" class="new_Course" value="submit">
 		</div>
 	{{/if}}
 
+	{{#each courses}}
+      {{> course}}
+    {{/each}}
 
+</template>
 
+<template name="course">
+	<div class="course-div">
+		<h3> <span class="course-name">{{name}}</span> </h3>
+	</div>
 </template>

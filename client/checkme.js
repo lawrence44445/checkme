@@ -1,12 +1,23 @@
-// Template.courseBoard.newCourses = function() {
-//   console.log('hello world');
-// };
-
 Template.newCourses.events({
   'click .attendence-tracker': function () {
     Session.set("view_tracker", true);
   }
 })
+
+Template.newCourses.events({
+  'click input.new_Course': function() {
+    var new_course=document.getElementById("new_course_name").value;
+    Courses.insert({name: new_course});
+    var allCourses = Courses.find({}).fetch();
+    console.log(allCourses);
+  }
+})
+
+Template.newCourses.courses = function () {
+  console.log(Courses.find({}));
+  return Courses.find({});
+}
+
 
 Template.newCourses.isTrackerTrue = function () {
   var checkTracker = Session.get("view_tracker");
@@ -75,8 +86,8 @@ Template.student.events({
                 course: "_id" }),    //link to document in course collection...
         studentsArray: [
                         {
-                          name: "Tyson",
-                          studentnumber: 4,
+                          name: Students.findOne(Session.get("selected_student")).name,
+                          studentnumber: Students.findOne(Session.get("selected_student"))._id,
                           attendance: "here"
                         }
                       ]
@@ -101,3 +112,5 @@ Template.student.events({
     console.log(students);
   }
 });
+
+
