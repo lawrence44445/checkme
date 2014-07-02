@@ -1,18 +1,28 @@
 
 
-<template name="courseBoard">
+<!-- <template name="courseBoard">
 		{{> newCourses}}
 		<p> hello world </p>
-	<!--<input type="button" name="details" value="view leaderboard"> -->
-</template>
+	<input type="button" name="details" value="view leaderboard">
+</template> -->
 
 <template name="newCourses">
-	<div>
-		<h2>Course1</h2>
-		<p>Course1 details , sessions</p>
+
+	{{#unless isTrackerTrue}}
+	<div class="attendence-tracker">
+		<p> Go to Tracker </p>
 	</div>
-	<div>
-		
-	</div>
+	{{/unless}}
+
+	{{#if isTrackerTrue}}
+		{{> leaderboard}}
+	{{else}}
+		<div>
+			<h2>Course1</h2>
+			<p>Course1 details , sessions</p>
+		</div>
+	{{/if}}
+
+
 
 </template>

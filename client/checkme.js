@@ -2,6 +2,17 @@
 //   console.log('hello world');
 // };
 
+Template.newCourses.events({
+  'click .attendence-tracker': function () {
+    Session.set("view_tracker", true);
+  }
+})
+
+Template.newCourses.isTrackerTrue = function () {
+  var checkTracker = Session.get("view_tracker");
+  return checkTracker;
+}
+
 Template.leaderboard.students = function () {
   return Students.find({});
 };
@@ -34,20 +45,20 @@ Template.student.events({
     console.log(sessionCheck);
     if (sessionCheck[0]) {
       console.log(sessionCheck[0]._id);
-     
+
     var newStudent = {
       name: Students.findOne(Session.get("selected_student")).name,
       studentnumber: Students.findOne(Session.get("selected_student"))._id,
       attendance: "here"
     };
 
-    
+
      Meetings.update(
                       {_id: sessionCheck[0]._id},
-                      {$addToSet: 
+                      {$addToSet:
                         { studentsArray: newStudent
                         }
-                       }); 
+                       });
 
      var doubleCheck = Meetings.find({name: "Mobile Dev Class # 2"}).fetch();
     console.log(doubleCheck);
@@ -62,7 +73,7 @@ Template.student.events({
         number: 3,
         course: Meetings.insert( {
                 course: "_id" }),    //link to document in course collection...
-        studentsArray: [ 
+        studentsArray: [
                         {
                           name: "Tyson",
                           studentnumber: 4,
